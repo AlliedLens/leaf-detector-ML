@@ -19,7 +19,7 @@ function classifyPage({imageUrl}){
                             <Row>
                                 <Col md={6} >
                                     <Card.Title><b>Original Image</b></Card.Title>
-                                    <Image src={preview} alt={preview} style={{ maxWidth: 300, maxHeight: 300 }}/>
+                                    <Image src={imageUrl} alt={imageUrl} style={{ maxWidth: 300, maxHeight: 300 }}/>
 
                                 </Col>
                                 <Col md={6}>

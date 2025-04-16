@@ -2,19 +2,14 @@ import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import { useState } from "react";
 
-function FeaturesPage({imageUrl}){
+function FeaturesPage({imageUrl, feauture, setFeature}){
 
-    const [selectedFeature, setSelectedFeature] = useState(null);
 
 
     const handleRadioClick = (e) => {
-        setSelectedFeature(e.target.value);
-
-        console.log('sending feature data to backend');
+        setFeature(e.target.value);
     }
-
-
-    
+ 
     return (
         <div>
             <h5>

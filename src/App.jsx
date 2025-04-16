@@ -14,6 +14,7 @@ function App() {
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState(null);
   const [feature, setFeature] = useState(null);
+  const [prediction, setPrediction] = useState(null);
   const [imageUrl, setImageUrl] = useState();
 
 
@@ -64,7 +65,7 @@ function App() {
         <Card.Body>
           
 
-          <CurrPage imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+          <CurrPage imageUrl={imageUrl} setImageUrl={setImageUrl}  prediction={prediction} setPrediction={setPrediction} feature={feature} setFeature={setFeature}/>
 
 
         </Card.Body>

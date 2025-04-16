@@ -7,6 +7,8 @@ import { ListGroup } from "react-bootstrap";
 
 function AnalysisPage({imageUrl}){
 
+    const [preproccessPreview, setPreprocessPreview] = useState(null);
+
     return (
         <div>
             <h5>
