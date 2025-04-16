@@ -14,6 +14,8 @@ function App() {
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState(null);
   const [feature, setFeature] = useState(null);
+  const [imageUrl, setImageUrl] = useState();
+
 
   const pages = [
     {name : 'Upload', component:UploadPage},
@@ -62,7 +64,7 @@ function App() {
         <Card.Body>
           
 
-          <CurrPage file={file} setFile={setFile}/>
+          <CurrPage imageUrl={imageUrl} setImageUrl={setImageUrl}/>
 
 
         </Card.Body>

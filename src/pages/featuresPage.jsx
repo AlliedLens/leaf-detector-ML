@@ -2,21 +2,10 @@ import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import { useState } from "react";
 
-function FeaturesPage({file, setFile}){
+function FeaturesPage({imageUrl}){
 
-    const [preview, setPreview] = useState(null);
     const [selectedFeature, setSelectedFeature] = useState(null);
 
-
-    const handleFileChange = (file) => {
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
 
     const handleRadioClick = (e) => {
         setSelectedFeature(e.target.value);
@@ -24,7 +13,6 @@ function FeaturesPage({file, setFile}){
         console.log('sending feature data to backend');
     }
 
-    handleFileChange(file);
 
     
     return (
@@ -33,15 +21,15 @@ function FeaturesPage({file, setFile}){
                 Select the features to extract from the image
             </h5>
             <Card>
-                {!file && <Alert>No Image Loaded, Go back and load an image!</Alert>}
-                {file &&
+                {!imageUrl && <Alert>No Image Loaded, Go back and load an image!</Alert>}
+                {imageUrl &&
                     <>
 
                         <Card.Body>
                             <Row>
                                 <Col md={8}>
                                     <Card.Title>Original Image</Card.Title>
-                                    <Image src={preview} alt={preview} style={{ maxWidth: 300, maxHeight: 300 }}/>
+                                    <Image src={imageUrl} alt={imageUrl} style={{ maxWidth: 300, maxHeight: 300 }}/>
                                 </Col>
                                 <Col md={4} className="d-flex flex-column align-items-center justify-content-center">                                
                                     <Form.Group className="mt-3 mr-3" controlId="feature-selector">

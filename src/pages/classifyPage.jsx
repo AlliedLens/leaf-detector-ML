@@ -2,23 +2,7 @@ import { Card, Form, Row , Alert, Image, Col, ListGroup, ListGroupItem, Button} 
 import { useState } from "react";
 
 
-function classifyPage({file}){
-    const [preview, setPreview] = useState(null);
-    const [selectedFeature, setSelectedFeature] = useState(null);
-
-    const handleFileChange = (file) => {
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    handleFileChange(file);
-
-
+function classifyPage({imageUrl}){
 
     return (
         <>
@@ -27,8 +11,8 @@ function classifyPage({file}){
                     This system uses a rule-based approach to classify leaves based on the extracted features. 
                 </h5>
                 <Card>
-                {!file && <Alert>No Image Loaded, Go back and load an image!</Alert>}
-                {file &&
+                {!imageUrl && <Alert>No Image Loaded, Go back and load an image!</Alert>}
+                {imageUrl &&
                     <>
                         <Card.Subtitle className="text-muted">The classification rules analyze shape, color, and texture characteristics to determine the most likely leaf type.</Card.Subtitle>
                         <Card.Body>

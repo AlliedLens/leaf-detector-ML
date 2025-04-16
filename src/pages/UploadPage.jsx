@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-function UploadPage(){
+function UploadPage({imageUrl, setImageUrl}){
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [status, setStatus] = useState('');
@@ -13,7 +13,7 @@ function UploadPage(){
     const handleFileChange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
-  
+
       setSelectedFile(file);
       setPreviewUrl(URL.createObjectURL(file));
     };
@@ -38,6 +38,8 @@ function UploadPage(){
             },
           }
         );
+        
+        setImageUrl(response.data.image_url);
   
         setStatus({
           variant: 'success',
@@ -80,6 +82,7 @@ function UploadPage(){
                             variant="primary"
                             type="submit"
                             disabled={!selectedFile || isLoading}
+                            className="mt-4"
                             >
                             {isLoading ? (
                                 <>

@@ -5,23 +5,7 @@ import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 
-function AnalysisPage({file}){
-
-    const [preview, setPreview] = useState(null);
-    const [preproccessPreview, setPreprocessPreview] = useState(null);
-
-
-    const handleFileChange = (file) => {
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    handleFileChange(file);
+function AnalysisPage({imageUrl}){
 
     return (
         <div>
@@ -29,14 +13,14 @@ function AnalysisPage({file}){
                 The Image here is preprocessed according to what features we are trying to extract. 
             </h5>
             <Card>
-                {!file && <Alert>No Image Loaded, Go back and load an image!</Alert>}
-                {file &&
+                {!imageUrl && <Alert>No Image Loaded, Go back and load an image!</Alert>}
+                {imageUrl &&
                     <>
                         <Card.Body>
                             <Row>
                                 <Col md={6}>
                                     <Card.Title>Original Image</Card.Title>
-                                    <Image src={preview} alt={preview} style={{ maxWidth: 300, maxHeight: 300 }}/>
+                                    <Image src={imageUrl} alt={imageUrl} style={{ maxWidth: 300, maxHeight: 300 }}/>
                                 </Col>
                                 <Col md={6}>
                                     {preproccessPreview ? 
