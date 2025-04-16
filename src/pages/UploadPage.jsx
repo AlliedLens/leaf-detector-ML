@@ -1,25 +1,59 @@
-import { Card, Form, Button, Image } from "react-bootstrap";
+import { Card, Form, Button, Image, Spinner } from "react-bootstrap";
 import { useRef, useState } from "react";
+import axios from "axios";
 
 
-function UploadPage({setFile}){
-    const [preview, setPreview] = useState(null);
 
-
+function UploadPage(){
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
+    const [status, setStatus] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+  
     const handleFileChange = (e) => {
-        const selected = e.target.files[0];
-        if (selected) {
-          setFile(selected);
-          
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setPreview(reader.result);
-          };
-          reader.readAsDataURL(selected);
-        }
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     };
-    
-    
+  
+    const handleUpload = async (e) => {
+      e.preventDefault();
+      if (!selectedFile) return;
+  
+      setIsLoading(true);
+      setStatus('');
+  
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+  
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/uploadImage/',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+  
+        setStatus({
+          variant: 'success',
+          message: 'Image uploaded successfully!',
+          imageUrl: response.data.image,
+        });
+      } catch (error) {
+        setStatus({
+          variant: 'danger',
+          message: error.response?.data?.detail || 'Upload failed',
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
 
     return (
         <>
@@ -29,23 +63,36 @@ function UploadPage({setFile}){
                 </h6>
 
                 <div className="m-3">
-                    <Form>
+                    <Form onSubmit={handleUpload}>
                         <Form.Label>Choose Image: </Form.Label>
                         <Form.Control 
                         type='file'
                         onChange={handleFileChange}
                         ></Form.Control>
+                        { previewUrl && (
+                            <div className="mt-3">
+                                <Image src={previewUrl} alt={previewUrl} style={{maxWidth:300}} />
+                            </div>
+                        )}
+
+
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={!selectedFile || isLoading}
+                            >
+                            {isLoading ? (
+                                <>
+                                <Spinner animation="border" size="sm" className="me-2" />
+                                Uploading...
+                                </>
+                            ) : (
+                                'Upload Image'
+                            )}
+                        </Button>
                     </Form>
                 </div>
 
-                {preview && (
-                    <div className="mt-3">
-                        <h6>
-                            Preview:
-                        </h6>
-                        <Image src={preview} alt={preview} style={{maxWidth:300 } } />
-                    </div>
-                )}
 
             </div>
         </>

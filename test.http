@@ -1,0 +1,14 @@
+POST http://127.0.0.1:8000/sendimage/
+Content-Type: application/json
+
+{
+    "imgpath": "testvalue"
+}
+
+###
+GET http://127.0.0.1:8000/test
+Content-Type: application/json
+
+###
+GET http://127.0.0.1:8000/getimage
+Content-Type: application/json
