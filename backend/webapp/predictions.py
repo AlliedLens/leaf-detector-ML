@@ -254,3 +254,108 @@ def classify_by_shape(features):
         predicted_species = max(scores, key=scores.get)
 
         return predicted_species
+
+def run_feature_extractor(imagepath, feature_type):
+    image = read_image_from_url(imagepath)
+    if image is None:
+        return "Error: Unable to load image."
+
+    if feature_type == "color":
+        lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
+        a_mean = np.mean(lab[:, :, 1])
+        b_std = np.std(lab[:, :, 2])
+        return {"Green-red Channel Mean": a_mean, "Blue-Red Channel Standard Deviation": b_std}
+        
+    elif feature_type == "texture":
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        mean = np.mean(gray)
+        variance = np.var(gray)
+        entropy = -np.sum(gray * np.log2(gray + 1e-5))  # Add epsilon to avoid log(0)
+        skewness = skew(gray.flatten())
+        kurt = kurtosis(gray.flatten())
+        glcm = graycomatrix(gray, distances=[5], angles=[0], levels=256, symmetric=True, normed=True)
+        contrast = graycoprops(glcm, 'contrast')[0, 0]
+        energy = graycoprops(glcm, 'energy')[0, 0]
+        homogeneity = graycoprops(glcm, 'homogeneity')[0, 0]
+        correlation = graycoprops(glcm, 'correlation')[0, 0]
+
+        texture_features= {
+            "Mean": mean,
+            "Variance": variance,
+            "Entropy": entropy,
+            "Skewness": skewness,
+            "Kurtosis": kurt,
+            "Contrast": contrast
+        }
+        return texture_features
+        
+    elif feature_type == "shpae":
+        def crop_and_pad_image(image, margin=15):
+            h, w = image.shape[:2]
+
+            # Ensure we don't crop too much
+            if h <= 2*margin or w <= 2*margin:
+                return image
+
+            # Crop margins
+            cropped = image[margin:h-margin, margin:w-margin]
+
+            # Pad with white pixels to original size
+            padded = cv2.copyMakeBorder(
+                cropped,
+                top=margin,
+                bottom=margin,
+                left=margin,
+                right=margin,
+                borderType=cv2.BORDER_CONSTANT,
+                value=[255, 255, 255]  # White padding
+            )
+
+            return padded
+
+        processed = crop_and_pad_image(image, margin=20)
+        gray = color.rgb2gray(processed)
+        blurred = filters.gaussian(gray, sigma=1)
+        threshold_value = filters.threshold_otsu(blurred)
+        binary = blurred > threshold_value
+        edges = feature.canny(binary, sigma=1)
+        labeled_image = morphology.label(binary)
+        contours = measure.find_contours(binary, level=0.8)
+        if len(contours) == 0:
+            return None, None, None
+
+        contour = max(contours, key=len)
+        contour_image = np.zeros(binary.shape, dtype=bool)
+        contour = np.round(contour).astype(int)
+        contour_image[contour[:, 0], contour[:, 1]] = 1
+        area = np.sum(contour_image)
+        
+        perimeter = measure.perimeter(contour_image)
+        min_row, min_col = np.min(contour, axis=0)
+        max_row, max_col = np.max(contour, axis=0)
+        w = max_col - min_col
+        h = max_row - min_row
+        aspect_ratio = w / h
+        rect_area = w * h
+        extent = area / rect_area if rect_area > 0 else 0
+        hull = morphology.convex_hull_image(contour_image)
+        hull_area = np.sum(hull)
+        solidity = area / hull_area if hull_area > 0 else 0
+
+        regions = measure.regionprops(labeled_image)
+        if len(regions) == 0:
+            return None
+        centroid_y, centroid_x = regions[0].centroid
+
+        features={
+            "Area": area,
+            "Perimeter": perimeter,
+            "Aspect Ratio": aspect_ratio,
+            "Extent": extent,
+            "Solidity": solidity,
+            "Centroid X": centroid_x,
+            "Centroid Y": centroid_y
+        }
+
+        return features
+    

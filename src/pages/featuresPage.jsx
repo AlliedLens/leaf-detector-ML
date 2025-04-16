@@ -2,9 +2,9 @@ import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import { useState } from "react";
 
-function FeaturesPage({imageUrl, setFeature}){
+function FeaturesPage({imageUrl, setFeature, featureList}){
 
-
+    console.log(featureList);
 
     const handleRadioClick = (e) => {
         setFeature(e.target.id);

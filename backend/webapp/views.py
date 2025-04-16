@@ -10,7 +10,7 @@ from .serializers import ImageSerializer
 from django.http import FileResponse
 from django.conf import settings
 
-from .predictions import predict_leaf
+from .predictions import predict_leaf, run_feature_extractor
 
 # Create your views here.
 
@@ -38,6 +38,12 @@ class ImageUploadView(generics.CreateAPIView):
             shapePred = predict_leaf(image_url, "shape")
             texturePred = predict_leaf(image_url, "texture")
 
+            colorFeatures = run_feature_extractor(image_url, "color")
+            shapeFeatures = run_feature_extractor(image_url, "shape")
+            textureFeatures = run_feature_extractor(image_url, "texture")
+            
+            features = {"color": colorFeatures, "shape":shapeFeatures, "texture": textureFeatures}
+
             prediction = {"color" : colorPred, "shape": shapePred, "texture": texturePred}
 
             # print(prediction)
@@ -45,6 +51,7 @@ class ImageUploadView(generics.CreateAPIView):
             return Response({
                 'status': 'success',
                 'image_url': image_url,
+                'features' : features,
                 'prediction' : prediction,
                 'message': 'Image uploaded successfully'
             }, status=status.HTTP_201_CREATED)

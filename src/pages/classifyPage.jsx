@@ -6,13 +6,13 @@ function classifyPage({imageUrl, feature, prediction}){
     const [showClassification, setShowClassification] = useState(false);
 
     const flowerDescriptions = {
-        "Bougainvillea": "A vibrant ornamental plant known for its papery, colorful bracts that surround tiny white flowers, often seen cascading over fences in tropical climates.",
-        "Cleistocalyx_operculatus": "A dense shrub with glossy green leaves and small white flowers, traditionally used in herbal remedies and favored for its aromatic foliage.",
-        "Cordyline_fruticosa": "An eye-catching tropical plant with striking, colorful leaves in shades of red, pink, and green, often used in landscaping and cultural ceremonies.",
-        "Psidium_gauvaja": "Commonly known as guava, this plant bears fragrant white flowers and sweet, edible fruit, popular in both gardens and kitchens around the world.",
-        "Psuderanthemum_carruthersii": "A low-growing shrub with bold, variegated foliage and purple-toned leaves, appreciated for its decorative appeal in shaded garden areas."
+        "Bougainvillea": "Bougainvillea is widely cultivated across Tulunadu for its drought resistance and vibrant bracts. It is commonly used for fencing and decorative purposes in both rural and urban areas.",
+        "Cleistocalyx_operculatus": "Known locally in parts of Tulunadu as a traditional medicinal plant, Cleistocalyx operculatus is used in folk remedies, particularly for oral health, and thrives in the region’s humid climate.",
+        "Cordyline_fruticosa": "Cordyline fruticosa, often planted around Tulunadu homes and temples, is known for its colorful foliage and is used in local rituals and boundary plantings.",
+        "Psidium_gauvaja": "Psidium guajava (guava) is commonly grown in Tulunadu home gardens for its edible fruit. It is also used in traditional medicine for treating digestive issues and skin ailments.",
+        "Psuderanthemum_carruthersii": "This ornamental shrub is found in shaded gardens throughout Tulunadu, valued for its variegated purple-green foliage and ability to thrive in the region’s moist, shaded environments."
     };
-    
+        
     console.log(prediction[feature]);
 
     const onSubmit = () => {

@@ -14,6 +14,7 @@ function App() {
   const [pageCount, setPageCount] = useState(0);
   const [file, setFile] = useState(null);
   const [feature, setFeature] = useState(null);
+  const [featureList, setFeatureList] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [imageUrl, setImageUrl] = useState();
 
@@ -50,10 +51,10 @@ function App() {
 
   return (
     <Container className="mt-5" data-bs-theme="dark">
-      <h1>🍃 Leaf Classification 🍃</h1>
+      <h1>🍃 Tulunadu Leaf Classification 🍃</h1>
       <Card>
         <Card.Header>
-          <Card.Title>Leaf Classification System</Card.Title>
+          <Card.Title>Tulunadu hosts diverse tropical and medicinal flora, enriched by its coastal and Western Ghats ecosystems.</Card.Title>
           <Card.Subtitle>Upload a leaf image, select features, preprocess, analyze, and classify. </Card.Subtitle>
 
           <ButtonGroup className='mt-5'>
@@ -65,7 +66,11 @@ function App() {
         <Card.Body>
           
 
-          <CurrPage imageUrl={imageUrl} setImageUrl={setImageUrl}  prediction={prediction} setPrediction={setPrediction} feature={feature} setFeature={setFeature}/>
+          <CurrPage imageUrl={imageUrl} setImageUrl={setImageUrl}  
+          prediction={prediction} setPrediction={setPrediction} 
+          feature={feature} setFeature={setFeature}
+          featureList={featureList} setFeatureList={setFeatureList}
+          />
 
 
         </Card.Body>
