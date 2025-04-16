@@ -2,12 +2,12 @@ import { Card, Col, Form, Image, Row } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 import { useState } from "react";
 
-function FeaturesPage({imageUrl, feauture, setFeature}){
+function FeaturesPage({imageUrl, setFeature}){
 
 
 
     const handleRadioClick = (e) => {
-        setFeature(e.target.value);
+        setFeature(e.target.id);
     }
  
     return (
@@ -30,24 +30,24 @@ function FeaturesPage({imageUrl, feauture, setFeature}){
                                     <Form.Group className="mt-3 mr-3" controlId="feature-selector">
                                         <Form.Check 
                                             type='radio'
-                                            id='Shape Features'
-                                            label='Shape features'
+                                            id='shape'
+                                            label='📐 Shape Features'
                                             className="mb-3"
                                             name='feature'
                                             onClick={handleRadioClick}
                                         />
                                         <Form.Check 
                                             type='radio'
-                                            id='Color Features'
-                                            label='Color features'
+                                            id='color'
+                                            label='🖌️ Color Features'
                                             className="mb-3"
                                             name='feature'
                                             onClick={handleRadioClick}
                                         />
                                         <Form.Check 
                                             type='radio'
-                                            id='Texture Features'
-                                            label='Texture features'
+                                            id='texture'
+                                            label='🧵 Texture Features'
                                             className="mb-3"
                                             name='feature'
                                             onClick={handleRadioClick}

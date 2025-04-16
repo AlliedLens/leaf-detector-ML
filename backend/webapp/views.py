@@ -40,7 +40,7 @@ class ImageUploadView(generics.CreateAPIView):
 
             prediction = {"color" : colorPred, "shape": shapePred, "texture": texturePred}
 
-            print(prediction)
+            # print(prediction)
 
             return Response({
                 'status': 'success',

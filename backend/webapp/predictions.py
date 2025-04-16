@@ -134,15 +134,15 @@ def run_prediction_algorithm(imagepath, feature_type):
 def classify_by_color(a_mean, b_std):
     """Classification using LAB color features"""
     if a_mean>=127.7:
-        M='cordyline fruticose'
+        M='Cordyline_fruticosa'
     elif 127.0<a_mean<127.7:
         if 127.1<a_mean<127.4:
-            M='Cleistocalyx operculatus'
+            M='Cleistocalyx_operculatus'
         else:
             M='Bougainvillea'
     elif 126.0<a_mean<127.0:
         if 7.0<b_std<=10.5:
-            M='Psidium gauvaja'
+            M='Psidium_gauvaja'
         else:
             M='Psuderanthemum_carruthersii'
     else:
@@ -159,26 +159,26 @@ def classify_by_texture(texture_features):
         "Skewness": ((-7.7, -6.4), 1.5),
         "Kurtosis": ((39, 58), 1)
     },
-    "Cleistocalyx operculatus": {
+    "Cleistocalyx_operculatus": {
         "Variance": ((0.0141, 0.0187), 2),
         "Entropy": ((61000, 83000), 1.5),
         "Skewness": ((-5.7, -5.0), 1.5),
         "Kurtosis": ((23.9, 30.2), 1)
     },
-    "Cordyline fruticosa": {
+    "Cordyline_fruticosa": {
         "Variance": ((0.0391, 0.0819), 2),
         "Entropy": ((360000, 505000), 1.5),
         "Skewness": ((-2.1, -1.4), 1.5),
         "Kurtosis": ((0.5, 2.4), 1)
     },
-    "Psidium guajava": {
+    "Psidium_gauvaja": {
         "Variance": ((0.0208, 0.0271), 3),  # ↑ Increased weight
         "Entropy": ((131000, 166000), 1),
         "Skewness": ((-3.8, -3.2), 1),
         "Kurtosis": ((8.7, 12.6), 1),
             "Contrast":((12.369182,15.806119),2)
     },
-    "Psuderanthemum carruthersii": {
+    "Psuderanthemum_carruthersii": {
         "Variance": ((0.0157, 0.0339), 2),
         "Entropy": ((129000, 199000), 1),
         "Skewness": ((-3.9, -3.2), 1),

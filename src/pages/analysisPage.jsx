@@ -33,7 +33,7 @@ function AnalysisPage({imageUrl}){
                                         :
                                         <>
                                             <Card.Title>Preprocessed Image</Card.Title>
-                                            <Card.Subtitle className="text-muted">No Image has been preprocessed yet...</Card.Subtitle>
+                                            <Card.Subtitle className="text-muted">The Preprocessed Image goes here...</Card.Subtitle>
                                         </>
                                     }
                                 </Col>

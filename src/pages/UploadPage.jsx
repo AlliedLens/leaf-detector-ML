@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-function UploadPage({imageUrl, setImageUrl}){
+function UploadPage({imageUrl, setImageUrl, setPrediction}){
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [status, setStatus] = useState('');
@@ -40,6 +40,8 @@ function UploadPage({imageUrl, setImageUrl}){
         );
         
         setImageUrl(response.data.image_url);
+        setPrediction(response.data.prediction);
+        console.log(response.data.prediction)
   
         setStatus({
           variant: 'success',
