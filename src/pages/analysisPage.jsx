@@ -4,10 +4,11 @@ import { Alert } from "react-bootstrap";
 import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
+import {Table} from "react-bootstrap";
 
-function AnalysisPage({imageUrl}){
+function AnalysisPage({imageUrl, featureList, feature}){
 
-    const [preproccessPreview, setPreprocessPreview] = useState(null);
+    console.log(featureList, feature);
 
     return (
         <div>
@@ -25,17 +26,10 @@ function AnalysisPage({imageUrl}){
                                     <Image src={imageUrl} alt={imageUrl} style={{ maxWidth: 300, maxHeight: 300 }}/>
                                 </Col>
                                 <Col md={6}>
-                                    {preproccessPreview ? 
-                                        <>
-                                            <Card.Title>Preprocessed Image</Card.Title>
-                                            <Image src={preview} alt={preview} style={{ maxWidth: 300, maxHeight: 300 }}/>
-                                        </>
-                                        :
-                                        <>
-                                            <Card.Title>Preprocessed Image</Card.Title>
-                                            <Card.Subtitle className="text-muted">The Preprocessed Image goes here...</Card.Subtitle>
-                                        </>
-                                    }
+                                    <>
+                                        <Card.Title>Preprocessed Image</Card.Title>
+                                        <Card.Subtitle className="text-muted">The Preprocessed Image goes here...</Card.Subtitle>
+                                    </>
                                 </Col>
                             </Row>
                         </Card.Body>
@@ -43,9 +37,27 @@ function AnalysisPage({imageUrl}){
                 }
                 <Card.Footer className="mt-5">
                     <Card.Title>The Features Selected are: </Card.Title>
+                    {featureList[feature] ? (
+                        <Table className="mt-3">
+                        <thead>
+                            <tr>
+                            <th>Feature</th>
+                            <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.entries(featureList[feature]).map(([key, value]) => (
+                            <tr key={key}>
+                                <td><strong>{key}</strong></td>
+                                <td>{typeof value === "number" ? value.toFixed(3) : value}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                        </Table>
+                    ) : (
+                        <Alert variant="warning">No data available for this feature.</Alert>
+                    )}
                 </Card.Footer>
-
-
             </Card>
             
 
