@@ -31,16 +31,14 @@ An ML-based web application for classifying leaves of the Tulunadu region using 
 ---
 ## Project Structure
 
-leaf-detector-ML/
-│
-├── backend/               # Python ML logic + API
-├── public/                # Static assets
-├── src/                   # React components and logic
-├── venv/                  # Python virtual environment
-├── package.json           # Node dependencies
-├── vite.config.js         # Vite config
-├── eslint.config.js       # ESLint config
-└── README.md              # You're here!
+leaf-detector-ML/  <br>
+│                   <br>
+├── backend/               # Python ML logic + API <br>
+├── src/                   # React components and logic <br>
+├── venv/                  # Python virtual environment <br>
+├── package.json           # Node dependencies <br>
+├── vite.config.js         # Vite config <br>
+└── README.md              # You're here! <br>
 
 
 
