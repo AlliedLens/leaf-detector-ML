@@ -1,5 +1,10 @@
 # Leaf Detector ML
 
+![App Demo](src/assets/leafedetectorML.gif)
+
+> An understanding of the natural world and what's in it is a source of not only a great curiosity, but great fulfillment. 
+-David Attenborough
+
 
 ## Description
 
